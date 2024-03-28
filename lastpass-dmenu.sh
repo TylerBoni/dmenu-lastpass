@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
+#Options:
+sync=auto # auto, no, yes
+
 #check if X11
 if [ $XDG_SESSION_TYPE == "x11" ]; then
-  # I don't actaully have x11 installed so I'm not sure if this is correct
+  # I don't actaully have x11 installed, and I'm lazy, so I'm not sure if this is correct
   menu='dmenu'
   clip='xsel --secondary --i'
   pipe=true
@@ -15,7 +18,7 @@ set -euf -o pipefail
 FORMAT='%an (%au) | %ai'
 
 # Try fetch the list without syncing, but sync if lpass-cli doesnt have the blob cached
-LPASS_ITEMS=$(lpass ls --sync=no --color=never --format="$FORMAT" || printf 'no-sync')
+LPASS_ITEMS=$(lpass ls --sync=$sync --color=never --format="$FORMAT" || printf 'no-sync')
 
 # for debugging
 # LPASS_ITEMS='no-sync'
